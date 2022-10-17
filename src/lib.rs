@@ -44,13 +44,13 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 }
 
 fn print_data_as_hex(bytes: &[u8]) {
-  for (i, byte) in bytes.iter().enumerate() {
+  for i in 0..BUFFER_LEN {
     if i < BUFFER_LEN - 1 && i % 2 == 0 {
       print!(" ");
     }
 
     if i < bytes.len() {
-      print!("{:02x}", byte);
+      print!("{:02x}", bytes[i]);
     } else {
       print!("  ");
     }
