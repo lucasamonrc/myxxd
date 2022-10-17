@@ -1,5 +1,6 @@
-use std::error::Error;
-use std::{ fs, env };
+use std::{fs, error::Error};
+
+// const MAX_BYTES_HEX: usize = 16;
 
 pub struct Config {
   pub file_path: String,
@@ -8,7 +9,7 @@ pub struct Config {
 impl Config {
     pub fn build(args: &[String]) -> Result<Config, &'static str> {
       if args.len() < 2 {
-        return Err("not enough arguments. Usage: myxxd <file_path>");
+        return Err("Usage: myxxd <file_path>");
       }
 
       let file_path = args[1].clone();
@@ -18,5 +19,11 @@ impl Config {
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
+  let bytes = fs::read(config.file_path)?;
+
+  for byte in bytes.iter() {
+    print!("{:x} ", byte);
+  }
+
   Ok(())
 }
